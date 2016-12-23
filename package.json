@@ -1,0 +1,25 @@
+{
+  "name": "fh-wfm-simple-store",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "raincatcher",
+    "feedhenry"
+  ],
+  "author": "FeedHenry <npm@feedhenry.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fh-mbaas-api": "^6.1.1",
+    "lodash": "^4.17.2",
+    "q": "^1.4.1",
+    "shortid": "^2.2.6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "mocha": "^3.2.0",
+    "proxyquire": "^1.7.10"
+  }
+}
