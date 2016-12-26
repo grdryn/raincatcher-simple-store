@@ -13,4 +13,5 @@ module.exports = function(grunt) {
     }
   });
   grunt.registerTask('default', ['eslint', 'mochaTest']);
+  grunt.registerTask('unit', ['mochaTest']);
 };

@@ -9,6 +9,9 @@
   ],
   "author": "FeedHenry <npm@feedhenry.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "grunt unit"
+  },
   "dependencies": {
     "bluebird": "^3.4.7",
     "fh-mbaas-api": "^6.1.1",
