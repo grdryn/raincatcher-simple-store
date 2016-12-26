@@ -14,10 +14,11 @@ const newItem = {
   "password" : "Password1"
 };
 
-module.exports = function(Store, name) {
-  describe(name, function() {
-    beforeEach(function() {
-      this.store = new Store('user', fixtures);
+module.exports = function(Store, describeDescription) {
+  describe(describeDescription, function() {
+    before(function() {
+      this.store = new Store('user');
+      console.log(fixtures)
       return this.store.init(fixtures);
     });
 
@@ -90,6 +91,10 @@ module.exports = function(Store, name) {
           assert.equal(user, null);
         });
       });
+    });
+
+    after(function() {
+      return this.store.deleteAll();
     });
   });
 };
