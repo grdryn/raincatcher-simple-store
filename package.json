@@ -10,7 +10,8 @@
   "author": "FeedHenry <npm@feedhenry.com>",
   "license": "MIT",
   "scripts": {
-    "test": "grunt unit"
+    "test": "grunt unit",
+    "vuln": "nsp check"
   },
   "dependencies": {
     "bluebird": "^3.4.7",
@@ -23,6 +24,6 @@
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
     "mocha": "^3.2.0",
-    "proxyquire": "^1.7.10"
+    "nsp": "^2.6.2"
   }
 }

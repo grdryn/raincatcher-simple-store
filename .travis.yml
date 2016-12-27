@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+- '0.10'
+- '4'
+services:
+  - docker
+  - mongodb
+before_script:
+  - mongo raincatcher --eval 'db.addUser("travis", "test");'
+script:
+  - npm test
+  - npm run vuln; exit 0
+  - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
+notifications:
+  email: false
+  slack:
+    on_success: change
+    on_failure: always
+    rooms:
+      secure: >-
+        2nK3rTSJGmbQkiz8JQhxa4q0sHHPSqcqqn9jwDMymHjGnDIS5D33XIVwH6U5cfObmc9oJNePlA5cQmwFd6b38ZxQJZnOPeiJRE8BHM14NhWku0Qn4EUA5cbmSqpNfW3dxOBSWIkuEdPUSLsPybFJsdnRUW9YUf572GpE7qzHdyiiGxTRSY0hX+mN3VrkZ2gjUg903AJ8x8xHpZv06vpnuKy5zKn2CTfRZ2ivSCjTc9V7LJpZ7qWEiDeSDacn5Nn7Icvie40vF7lxXi5BXs+74tP0680cThA3PUo1xT83YXIGPoY8iscqb/AW6J7Pk/3+8ipXOFUR2BPW8aWnLAatEnkabzu5aiylJN9ruCtWjFjwwS1Ic89AvGWDeDB83/r5e2dXiYrNV4RQJKrYW77I0/s9J+Dmltab6Cu9cxFKREcQbx3I9usPhpqDHhjwbaQVkb+tUadk4Nb9QTxhgGFa03/IF90TNreiCbADSDXbBXDx9rSbgYrtNRONzzf3QNWz1sSwbSDfbbF1DKfzcX3Ec6D8ZUuFcRdciLxblW7hApFXwzXaG/fJH9cSFiaVJSfnf8O1a+XHs3bLob9vP4fVwvEQzjX/Z2VY2pbAVcWSLLixxsQuTyGv4gpHSmQ430Ho2e4rcYLYZhzb9p7TqG5CEwH2mXgZXF15oNs5tHo3UNA=
+    on_pull_requests: false
