@@ -16,14 +16,13 @@ const newItem = {
 
 module.exports = function(Store, describeDescription) {
   describe(describeDescription, function() {
-    before(function() {
+    beforeEach(function() {
       this.store = new Store('user');
-      console.log(fixtures)
       return this.store.init(fixtures);
     });
 
     describe('#list', function() {
-      it('should return all users', function() {
+      it('should return all items', function() {
         return this.store.list().then(function(res) {
           assert.equal(res.length, fixtures.length);
         });
@@ -31,7 +30,7 @@ module.exports = function(Store, describeDescription) {
     });
 
     describe('#read', function() {
-      it('should find an user by id', function() {
+      it('should find an item by id', function() {
         return this.store.read(daisyId).then(function(daisy) {
           assert(daisy.username === 'daisy');
         });
@@ -81,19 +80,19 @@ module.exports = function(Store, describeDescription) {
     });
 
     describe('#delete', function() {
-      it('should remove a user', function() {
+      it('should remove a item', function() {
         return this.store.delete(daisyId).then(function(user) {
           assert.equal(user.username, 'daisy');
         });
       });
-      it('should return null when user not found', function() {
-        return this.store.delete('invalid_username').then(function(user) {
+      it('should return null when item not found', function() {
+        return this.store.delete('invalid_id').then(function(user) {
           assert.equal(user, null);
         });
       });
     });
 
-    after(function() {
+    afterEach(function() {
       return this.store.deleteAll();
     });
   });
