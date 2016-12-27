@@ -6,7 +6,8 @@ services:
   - docker
   - mongodb
 before_script:
-  - mongo raincatcher --eval 'db.addUser("travis", "test");'
+  - >-
+    mongo raincatcher --eval 'db.createUser({user: "user", pwd: "pw", roles: ["readWrite"]});'
 script:
   - npm test
   - npm run vuln; exit 0
