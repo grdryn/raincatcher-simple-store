@@ -101,6 +101,8 @@ module.exports = function(Store, describeDescription) {
         // expected to answer at done:wfm:user:create:testid
         return mediator.request('wfm:user:create', {id: 'testid', username: 'test'},
           {uid: 'testid'}).then(function(res) {
+            assert(res);
+            console.log(res)
             assert.notEqual(res.id, 'testid', 'create() should generate a new id');
             assert.equal(res.username, 'test');
           });
