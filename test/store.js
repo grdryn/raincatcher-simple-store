@@ -99,23 +99,23 @@ module.exports = function(Store, describeDescription) {
       });
       it('should listen to the create topic', function() {
         // expected to answer at done:wfm:user:create:testid
-        return mediator.request('wfm:user:create', {id: 'testid', username: 'test'},
-          {uid: 'testid'}).then(function(res) {
+        return this.store.topics.request('create', {id: 'testid', username: 'test'},
+          {uid: 'testid'})
+          .then(function(res) {
             assert(res);
-            console.log(res)
             assert.notEqual(res.id, 'testid', 'create() should generate a new id');
             assert.equal(res.username, 'test');
           });
       });
       it('should listen to the read topic', function() {
         // expected to answer at done:wfm:user:read:${daisyId}
-        return mediator.request('wfm:user:read', daisyId).then(function(res) {
+        return this.store.topics.request('read', daisyId).then(function(res) {
           assert.equal(res.username, 'daisy');
         });
       });
       it('should listen to the update topic', function() {
         // expected to answer at done:wfm:user:update:${daisyId}
-        return mediator.request('wfm:user:update', {id: daisyId, position: 'test'},
+        return this.store.topics.request('update', {id: daisyId, position: 'test'},
           {uid: daisyId}).then(function(res) {
             assert.equal(res.username, 'daisy');
             assert.equal(res.position, 'test');
@@ -123,14 +123,14 @@ module.exports = function(Store, describeDescription) {
       });
       it('should listen to the delete topic', function() {
         // expected to answer at done:wfm:user:delete:${daisyId}
-        return mediator.request('wfm:user:delete', {id: daisyId, position: 'test'},
+        return this.store.topics.request('delete', {id: daisyId, position: 'test'},
           {uid: daisyId}).then(function(res) {
             assert.equal(res.username, 'daisy');
           });
       });
       it('should listen to the list topic', function() {
         // expected to answer at done:wfm:user:list
-        return mediator.request('wfm:user:list').then(function(res) {
+        return this.store.topics.request('list').then(function(res) {
           assert.equal(res.length, 8);
         });
       });
