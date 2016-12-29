@@ -16,6 +16,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "fh-mbaas-api": "^6.1.1",
+    "fh-wfm-mediator": "0.1.0-rc1",
     "lodash": "^4.17.2",
     "shortid": "^2.2.6"
   },

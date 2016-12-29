@@ -4,6 +4,7 @@
 const fixtures = require('./fixtures');
 const assert = require('assert');
 const daisyId = 'rJeXyfdrH';
+const mediator = require('fh-wfm-mediator/lib/mediator');
 const newItem = {
   "username" : "jdoe",
   "name" : "John Doe",
@@ -27,12 +28,35 @@ module.exports = function(Store, describeDescription) {
           assert.equal(res.length, fixtures.length);
         });
       });
+      it('should not allow edits', function() {
+        var origUsername;
+        return this.store.list().then(function(res) {
+          var item = res[0];
+          origUsername = item.username;
+          item.username = 'bogus';
+        }).then(this.store.list.bind(this.store))
+        .then(function(res) {
+          var item = res[0];
+          assert.equal(item.username, origUsername);
+        });
+      });
     });
 
     describe('#read', function() {
       it('should find an item by id', function() {
         return this.store.read(daisyId).then(function(daisy) {
           assert(daisy.username === 'daisy');
+        });
+      });
+      it('should not allow edits', function() {
+        var self = this;
+        return this.store.read(daisyId).then(function(daisy) {
+          daisy.username = 'donald duck';
+        }).then(function() {
+          return self.store.read(daisyId);
+        }).then(function(daisy2) {
+          assert(daisy2);
+          assert.equal(daisy2.username, 'daisy');
         });
       });
       it('should resolve with nothing when not found', function() {
@@ -89,6 +113,52 @@ module.exports = function(Store, describeDescription) {
         return this.store.delete('invalid_id').then(function(user) {
           assert.equal(user, null);
         });
+      });
+    });
+
+    describe('#listen', function() {
+      beforeEach(function() {
+        this.store.listen('', mediator);
+      });
+      it('should listen to the create topic', function() {
+        // expected to answer at done:wfm:user:create:testid
+        return this.store.topics.request('create', {id: 'testid', username: 'test'},
+          {uid: 'testid'})
+          .then(function(res) {
+            assert(res);
+            assert.notEqual(res.id, 'testid', 'create() should generate a new id');
+            assert.equal(res.username, 'test');
+          });
+      });
+      it('should listen to the read topic', function() {
+        // expected to answer at done:wfm:user:read:${daisyId}
+        return this.store.topics.request('read', daisyId).then(function(res) {
+          assert.equal(res.username, 'daisy');
+        });
+      });
+      it('should listen to the update topic', function() {
+        // expected to answer at done:wfm:user:update:${daisyId}
+        return this.store.topics.request('update', {id: daisyId, position: 'test'},
+          {uid: daisyId}).then(function(res) {
+            assert.equal(res.username, 'daisy');
+            assert.equal(res.position, 'test');
+          });
+      });
+      it('should listen to the delete topic', function() {
+        // expected to answer at done:wfm:user:delete:${daisyId}
+        return this.store.topics.request('delete', {id: daisyId, position: 'test'},
+          {uid: daisyId}).then(function(res) {
+            assert.equal(res.username, 'daisy');
+          });
+      });
+      it('should listen to the list topic', function() {
+        // expected to answer at done:wfm:user:list
+        return this.store.topics.request('list').then(function(res) {
+          assert.equal(res.length, 8);
+        });
+      });
+      afterEach(function() {
+        this.store.unsubscribe();
       });
     });
 
