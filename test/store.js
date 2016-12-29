@@ -28,12 +28,35 @@ module.exports = function(Store, describeDescription) {
           assert.equal(res.length, fixtures.length);
         });
       });
+      it('should not allow edits', function() {
+        var origUsername;
+        return this.store.list().then(function(res) {
+          var item = res[0];
+          origUsername = item.username;
+          item.username = 'bogus';
+        }).then(this.store.list.bind(this.store))
+        .then(function(res) {
+          var item = res[0];
+          assert.equal(item.username, origUsername);
+        });
+      });
     });
 
     describe('#read', function() {
       it('should find an item by id', function() {
         return this.store.read(daisyId).then(function(daisy) {
           assert(daisy.username === 'daisy');
+        });
+      });
+      it('should not allow edits', function() {
+        var self = this;
+        return this.store.read(daisyId).then(function(daisy) {
+          daisy.username = 'donald duck';
+        }).then(function() {
+          return self.store.read(daisyId);
+        }).then(function(daisy2) {
+          assert(daisy2);
+          assert.equal(daisy2.username, 'daisy');
         });
       });
       it('should resolve with nothing when not found', function() {
