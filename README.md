@@ -1,6 +1,6 @@
 # FeedHenry RainCatcher Simple Store
 
-A CRUD storage engine that supports both in-memory and $fh.db backends.
+A CRUDL storage engine that supports both in-memory and $fh.db backends.
 
 # Usage
 
@@ -27,7 +27,11 @@ store.init({}).then(function() {
 ```
 
 # DB Api
-The `$fh.db` backend utilizes the storage engine provided by the FeedHenry Cloud API, wrapped by the Simple Store API and is activated when the `WFM_USE_MEMORY_STORE` enviroment variable is set to `false`. The general configuration is done via environment variables.
+The `$fh.db` backend utilizes the storage engine provided by the FeedHenry Cloud API, wrapped by the Simple Store API .
+
+You have the option to utilize an in-memory version of the store by setting the `WFM_USE_MEMORY_STORE` variable to `true`, this store is intended for quick tests and will lose its contents on application restart.
+
+The general configuration is done via the same environment variables that `$fh.db` regularly uses.
 
 During execution, you can detect if the storage engine being used utilizes a persistent backend via the `{store}.isPersistent` property.
 
