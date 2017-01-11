@@ -168,6 +168,8 @@ module.exports = function(Store, describeDescription) {
       });
       it('should listen to the reset topic', function() {
         var self = this;
+        // need uid:null because otherwise mediator.request
+        // grabs the first element of the array as the uid
         return self.store.topics.request('reset', fixtures, {uid: null})
         .then(function() {
           return self.store.topics.request('list');
