@@ -26,13 +26,11 @@ store.init({}).then(function() {
 })
 ```
 
-# DB Api
-The `$fh.db` backend utilizes the storage engine provided by the FeedHenry Cloud API, wrapped by the Simple Store API .
+# Peristent Storage using the `$fh.db` API
+The persistent storage functionality is provided by the [`$fh.db` Cloud API](https://access.redhat.com/documentation/en/red-hat-mobile-application-platform-hosted/3/paged/cloud-api/chapter-2-fhdb). This API is provided by the RHMAP Platform to Cloud Applications.
 
 You have the option to utilize an in-memory version of the store by setting the `WFM_USE_MEMORY_STORE` variable to `true`, this store is intended for quick tests and will lose its contents on application restart.
 
-The general configuration is done via the same environment variables that `$fh.db` regularly uses.
+The general configuration is done via the same environment variables that `$fh.db` regularly uses (see documentation link above).
 
 During execution, you can detect if the storage engine being used utilizes a persistent backend via the `{store}.isPersistent` property.
-
-The documentation for `$fh.db` is available [here](https://access.redhat.com/documentation/en/red-hat-mobile-application-platform-hosted/3/paged/cloud-api/chapter-2-fhdb).
