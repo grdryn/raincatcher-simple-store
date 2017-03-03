@@ -23,6 +23,6 @@
     "grunt": "^1.0.1",
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
-    "mocha": "^3.2.0",
+    "mocha": "^3.2.0"
   }
 }
