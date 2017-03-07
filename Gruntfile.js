@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     },
     mochaTest: {
       test: {
-        src: ['./**/*-spec.js']
+        src: ['lib/**/*-spec.js']
       }
     }
   });
