@@ -5,6 +5,7 @@ const fixtures = require('./fixtures');
 const assert = require('assert');
 const daisyId = 'rJeXyfdrH';
 const mediator = require('fh-wfm-mediator/lib/mediator');
+const _ = require('lodash');
 const newItem = {
   "username" : "jdoe",
   "name" : "John Doe",
@@ -85,6 +86,12 @@ module.exports = function(Store, describeDescription) {
           assert(user.id);
         });
       });
+      it('should allow for a client code-supplied id', function() {
+        newItem.id = 'someId';
+        return this.store.create(newItem).then(function(user) {
+          assert.equal(user.id, 'someId');
+        });
+      });
     });
 
     describe('#update', function() {
@@ -126,7 +133,7 @@ module.exports = function(Store, describeDescription) {
           {uid: 'testid'})
           .then(function(res) {
             assert(res);
-            assert.notEqual(res.id, 'testid', 'create() should generate a new id');
+            assert.equal(res.id, 'testid', 'create() should use the provided id');
             assert.equal(res.username, 'test');
           });
       });
