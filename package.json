@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "bluebird": "3.4.7",
-    "fh-mbaas-api": "6.1.8",
+    "fh-mbaas-api": "feedhenry/fh-mbaas-api#e52b2ddb8ec136d6076907e470d3410231a4ea54",
     "fh-wfm-mediator": "grdryn/raincatcher-mediator#try-longer-timeout",
     "lodash": "4.17.2",
     "shortid": "2.2.6"
